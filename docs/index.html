@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintainer Signal - GitHub Action for OSS Maintainers</title>
+    <meta name="description" content="Maintainer Signal is a zero-dependency CLI and GitHub Action for issue triage, release notes, project health reports, and optional OpenAI maintainer briefs.">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #18202a;
+            background: #f6f8fb;
+        }
+        .hero {
+            min-height: 90vh;
+            display: grid;
+            align-items: center;
+            padding: 70px 24px 36px;
+            background:
+                linear-gradient(rgba(9, 16, 26, 0.42), rgba(9, 16, 26, 0.62)),
+                url("https://images.unsplash.com/photo-1556075798-4825dfaaf498?auto=format&fit=crop&w=1800&q=85") center/cover;
+            color: white;
+        }
+        .inner { width: 100%; max-width: 1000px; margin: 0 auto; }
+        .eyebrow {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0;
+            opacity: 0.9;
+        }
+        h1 {
+            margin: 14px 0 18px;
+            font-size: clamp(42px, 7vw, 82px);
+            line-height: 1;
+            letter-spacing: 0;
+            max-width: 850px;
+        }
+        .lead {
+            max-width: 720px;
+            font-size: 20px;
+            line-height: 1.55;
+            color: rgba(255,255,255,0.92);
+        }
+        .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+        .actions a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 46px;
+            padding: 0 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+        }
+        .primary { background: #4ca3ff; color: #061524; }
+        .secondary { color: white; border: 1px solid rgba(255,255,255,0.72); }
+        main { max-width: 1080px; margin: 0 auto; padding: 34px 24px 72px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+        .item {
+            background: white;
+            border: 1px solid #dfe6ef;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        h2 { font-size: 30px; margin: 28px 0 10px; letter-spacing: 0; }
+        h3 { margin: 0 0 8px; font-size: 18px; letter-spacing: 0; }
+        p { line-height: 1.6; }
+        code { background: #eef3f8; padding: 2px 6px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="inner">
+            <div class="eyebrow">CI-native maintainer intelligence</div>
+            <h1>Maintainer Signal</h1>
+            <p class="lead">A zero-dependency GitHub Action and CLI that turns issues and pull requests into project health reports, triage queues, release-note candidates, and optional OpenAI maintainer briefs.</p>
+            <div class="actions">
+                <a class="primary" href="https://github.com/Luke2program/maintainer-signal">Star on GitHub</a>
+                <a class="secondary" href="https://github.com/Luke2program/maintainer-signal#quick-start">Quick Start</a>
+            </div>
+        </div>
+    </section>
+    <main>
+        <h2>Built For Maintainers</h2>
+        <div class="grid">
+            <div class="item"><h3>Issue Triage</h3><p>Highlights stale threads, first-response gaps, likely labels, and priority candidates.</p></div>
+            <div class="item"><h3>Release Notes</h3><p>Collects merged pull requests and turns them into a clean release-note queue.</p></div>
+            <div class="item"><h3>Read-Only By Default</h3><p>Designed to run in CI without write access or an external dashboard.</p></div>
+            <div class="item"><h3>Optional OpenAI</h3><p>Adds maintainer briefs when <code>OPENAI_API_KEY</code> is configured; deterministic reports still work without it.</p></div>
+        </div>
+        <h2>Install</h2>
+        <p>Use <code>Luke2program/maintainer-signal@v0.2.0</code> in a scheduled GitHub workflow, or run the CLI locally with <code>npx maintainer-signal --repo owner/name</code>.</p>
+    </main>
+</body>
+</html>
