@@ -1,0 +1,24 @@
+[
+  {
+    "number": 88,
+    "title": "Fix missing config crash",
+    "body": "Adds a clearer error for missing config files.",
+    "state": "closed",
+    "created_at": "2026-05-21T08:00:00Z",
+    "updated_at": "2026-05-22T08:00:00Z",
+    "merged_at": "2026-05-22T08:00:00Z",
+    "labels": [{ "name": "bug" }],
+    "user": { "login": "core-maintainer" }
+  },
+  {
+    "number": 89,
+    "title": "Document Railway deployment",
+    "body": "Adds a deployment guide.",
+    "state": "closed",
+    "created_at": "2026-05-24T08:00:00Z",
+    "updated_at": "2026-05-25T08:00:00Z",
+    "merged_at": "2026-05-25T08:00:00Z",
+    "labels": [{ "name": "documentation" }],
+    "user": { "login": "docs-helper" }
+  }
+]

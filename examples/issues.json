@@ -1,0 +1,35 @@
+[
+  {
+    "number": 101,
+    "title": "Crash when config file is missing",
+    "body": "The CLI throws TypeError when config.json does not exist. Steps to reproduce included.",
+    "state": "open",
+    "created_at": "2026-04-29T08:00:00Z",
+    "updated_at": "2026-05-01T08:00:00Z",
+    "comments": 0,
+    "labels": [],
+    "user": { "login": "first-time-contributor" }
+  },
+  {
+    "number": 102,
+    "title": "How do I deploy this on Railway?",
+    "body": "Question about deployment docs. I could not find an example for Railway.",
+    "state": "open",
+    "created_at": "2026-05-10T08:00:00Z",
+    "updated_at": "2026-05-20T08:00:00Z",
+    "comments": 2,
+    "labels": [{ "name": "question" }],
+    "user": { "login": "user-123" }
+  },
+  {
+    "number": 103,
+    "title": "Add JSON export",
+    "body": "It would be useful to export the report as JSON for dashboards.",
+    "state": "open",
+    "created_at": "2026-05-18T08:00:00Z",
+    "updated_at": "2026-05-28T08:00:00Z",
+    "comments": 5,
+    "labels": [{ "name": "enhancement" }],
+    "user": { "login": "maintainer-friend" }
+  }
+]

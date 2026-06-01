@@ -1,0 +1,41 @@
+{
+  "name": "maintainer-signal",
+  "version": "0.1.0",
+  "description": "A zero-dependency maintainer intelligence CLI and GitHub Action for issue triage, release notes, and project health reports.",
+  "type": "module",
+  "bin": {
+    "maintainer-signal": "./src/cli.mjs"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check": "node src/cli.mjs --input examples/issues.json --format markdown --release-input examples/pulls.json"
+  },
+  "keywords": [
+    "github",
+    "open-source",
+    "maintainers",
+    "triage",
+    "release-notes",
+    "github-action"
+  ],
+  "author": "Luke2program",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "src",
+    "action.yml",
+    "examples",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luke2program/maintainer-signal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Luke2program/maintainer-signal/issues"
+  },
+  "homepage": "https://github.com/Luke2program/maintainer-signal#readme"
+}

@@ -1,0 +1,26 @@
+name: Maintainer Signal
+description: Generate maintainer health, issue triage, and release-note reports for GitHub repositories.
+author: Luke2program
+branding:
+  icon: activity
+  color: blue
+inputs:
+  github-token:
+    description: GitHub token used to read issues and pull requests.
+    required: false
+    default: ${{ github.token }}
+  days:
+    description: Number of recent days to inspect.
+    required: false
+    default: "30"
+  output:
+    description: Path to write the Markdown report.
+    required: false
+    default: signal-report.md
+  min-score:
+    description: Minimum health score before the action fails.
+    required: false
+    default: "0"
+runs:
+  using: node20
+  main: src/action.mjs
