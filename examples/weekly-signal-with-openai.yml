@@ -1,4 +1,4 @@
-name: Weekly Maintainer Signal
+name: Weekly Maintainer Signal with OpenAI
 
 on:
   schedule:
@@ -18,8 +18,8 @@ jobs:
         with:
           days: "30"
           output: signal-report.md
-          # Optional. Store your key in repository secrets.
-          # openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          openai-model: gpt-4.1-mini
       - uses: actions/upload-artifact@v4
         with:
           name: maintainer-signal

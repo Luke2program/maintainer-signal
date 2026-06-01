@@ -87,6 +87,12 @@ export function renderMarkdown(report, { repo } = {}) {
   lines.push(`Generated: ${report.generatedAt}`);
   lines.push(`Window: last ${report.windowDays} days`);
   lines.push("");
+  if (report.aiSummary) {
+    lines.push("## AI Maintainer Brief");
+    lines.push("");
+    lines.push(report.aiSummary);
+    lines.push("");
+  }
   lines.push(`## Health Score: ${report.healthScore}/100`);
   lines.push("");
   lines.push("- Open issues: " + report.totals.openIssues);

@@ -10,7 +10,7 @@ It is built for open-source maintainers who need a fast weekly picture of what m
 - whether the project health trend needs attention
 - what to paste into a status update, release note, or sponsorship report
 
-It works without AI and without third-party services. If a project later wants richer summaries, the report is structured so it can be safely passed to an LLM without exposing secrets.
+It works without AI and without third-party services by default. If a project wants richer summaries, it can optionally use an OpenAI API key to add an AI maintainer brief while keeping the deterministic report intact.
 
 ## Quick Start
 
@@ -30,6 +30,12 @@ Write the report to a file:
 
 ```bash
 npx maintainer-signal --repo owner/name --output signal-report.md
+```
+
+Add an optional OpenAI-generated maintainer brief:
+
+```bash
+OPENAI_API_KEY=sk-... npx maintainer-signal --repo owner/name --openai-summary
 ```
 
 ## GitHub Action
@@ -55,6 +61,8 @@ jobs:
         with:
           days: "30"
           output: signal-report.md
+          # Optional. Omit this for local-only deterministic reports.
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
       - uses: actions/upload-artifact@v4
         with:
           name: maintainer-signal
@@ -73,6 +81,7 @@ Maintainer Signal produces a Markdown report with:
 - likely support/documentation/bug buckets
 - release note candidates from merged pull requests
 - next recommended maintainer actions
+- optional OpenAI-generated maintainer brief
 
 Example:
 
@@ -95,6 +104,9 @@ Maintainers often do not need another dashboard. They need a concise digest that
 --format markdown|json        Output format, defaults to markdown
 --output path                 Write output to a file
 --min-score number            Exit with code 2 if health score is below this value
+--openai-summary              Add an optional OpenAI-generated maintainer brief
+--openai-api-key token        OpenAI API key, defaults to OPENAI_API_KEY
+--openai-model model          OpenAI model, defaults to OPENAI_MODEL or gpt-4.1-mini
 --help                        Show help
 ```
 
@@ -125,10 +137,10 @@ The local input mode accepts the shape returned by the GitHub REST API. It only 
 - Works in CI and locally
 - Human-readable output first
 - Small enough for maintainers to audit
+- Optional AI summaries, never required for the core report
 
 ## Roadmap
 
-- Optional OpenAI-powered natural language summaries
 - Comment posting mode for weekly maintainer digests
 - Label policy configuration
 - Project-specific health baselines

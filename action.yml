@@ -21,6 +21,13 @@ inputs:
     description: Minimum health score before the action fails.
     required: false
     default: "0"
+  openai-api-key:
+    description: Optional OpenAI API key for an AI-generated maintainer brief. Leave unset for deterministic local-only reports.
+    required: false
+  openai-model:
+    description: OpenAI model used for the optional maintainer brief.
+    required: false
+    default: gpt-4.1-mini
 runs:
   using: node20
   main: src/action.mjs

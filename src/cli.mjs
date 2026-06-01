@@ -2,6 +2,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { analyzeMaintainerSignal, renderMarkdown } from "./analyze.mjs";
 import { fetchRepositorySignal } from "./github.mjs";
+import { summarizeReportWithOpenAI } from "./openai.mjs";
 
 export async function main(argv = process.argv.slice(2), env = process.env) {
   const options = parseArgs(argv);
@@ -32,6 +33,12 @@ export async function main(argv = process.argv.slice(2), env = process.env) {
   }
 
   const report = analyzeMaintainerSignal({ issues, pulls, days });
+  if (options.openaiSummary) {
+    report.aiSummary = await summarizeReportWithOpenAI(report, {
+      apiKey: options.openaiApiKey || env.OPENAI_API_KEY,
+      model: options.openaiModel || env.OPENAI_MODEL || "gpt-4.1-mini"
+    });
+  }
   const output = options.format === "json"
     ? `${JSON.stringify(report, null, 2)}\n`
     : renderMarkdown(report, { repo: options.repo });
@@ -59,6 +66,9 @@ function parseArgs(argv) {
     else if (arg === "--format") options.format = argv[++i];
     else if (arg === "--output") options.output = argv[++i];
     else if (arg === "--min-score") options.minScore = argv[++i];
+    else if (arg === "--openai-summary") options.openaiSummary = true;
+    else if (arg === "--openai-api-key") options.openaiApiKey = argv[++i];
+    else if (arg === "--openai-model") options.openaiModel = argv[++i];
     else throw new Error(`Unknown option: ${arg}`);
   }
   options.format ||= "markdown";
@@ -84,6 +94,9 @@ Options:
   --format markdown|json        Output format, defaults to markdown
   --output path                 Write output to a file
   --min-score number            Exit with code 2 if health score is below this value
+  --openai-summary              Add an optional OpenAI-generated maintainer brief
+  --openai-api-key token        OpenAI API key, defaults to OPENAI_API_KEY
+  --openai-model model          OpenAI model, defaults to OPENAI_MODEL or gpt-4.1-mini
   --help                        Show this help
 `;
 }
