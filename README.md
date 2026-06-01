@@ -1,6 +1,13 @@
 # Maintainer Signal
 
+[![CI](https://github.com/Luke2program/maintainer-signal/actions/workflows/ci.yml/badge.svg)](https://github.com/Luke2program/maintainer-signal/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![GitHub Action](https://img.shields.io/badge/GitHub-Action-blue.svg)](action.yml)
+[![Node 20+](https://img.shields.io/badge/Node-20%2B-brightgreen.svg)](package.json)
+
 Maintainer Signal is a zero-dependency CLI and GitHub Action that turns issue and pull request activity into a practical maintainer report.
+
+If it saves you time during issue triage or release notes, a GitHub star helps other maintainers discover it.
 
 It is built for open-source maintainers who need a fast weekly picture of what matters:
 
