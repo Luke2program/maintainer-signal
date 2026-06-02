@@ -1,6 +1,6 @@
 {
   "name": "maintainer-signal",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A zero-dependency maintainer intelligence CLI and GitHub Action for issue triage, release notes, and project health reports.",
   "type": "module",
   "bin": {

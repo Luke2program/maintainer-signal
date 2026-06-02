@@ -32,7 +32,12 @@ export async function main(argv = process.argv.slice(2), env = process.env) {
     throw new Error("Provide --repo owner/name or --input issues.json");
   }
 
-  const report = analyzeMaintainerSignal({ issues, pulls, days });
+  const now = options.now ? new Date(options.now) : new Date();
+  if (Number.isNaN(now.getTime())) {
+    throw new Error("--now must be an ISO date or timestamp");
+  }
+
+  const report = analyzeMaintainerSignal({ issues, pulls, days, now });
   if (options.openaiSummary) {
     report.aiSummary = await summarizeReportWithOpenAI(report, {
       apiKey: options.openaiApiKey || env.OPENAI_API_KEY,
@@ -66,6 +71,7 @@ function parseArgs(argv) {
     else if (arg === "--format") options.format = argv[++i];
     else if (arg === "--output") options.output = argv[++i];
     else if (arg === "--min-score") options.minScore = argv[++i];
+    else if (arg === "--now") options.now = argv[++i];
     else if (arg === "--openai-summary") options.openaiSummary = true;
     else if (arg === "--openai-api-key") options.openaiApiKey = argv[++i];
     else if (arg === "--openai-model") options.openaiModel = argv[++i];
@@ -94,6 +100,7 @@ Options:
   --format markdown|json        Output format, defaults to markdown
   --output path                 Write output to a file
   --min-score number            Exit with code 2 if health score is below this value
+  --now ISO-date                Override the report timestamp for reproducible examples
   --openai-summary              Add an optional OpenAI-generated maintainer brief
   --openai-api-key token        OpenAI API key, defaults to OPENAI_API_KEY
   --openai-model model          OpenAI model, defaults to OPENAI_MODEL or gpt-4.1-mini

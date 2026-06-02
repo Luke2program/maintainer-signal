@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { join } from "node:path";
 import { test } from "node:test";
+import { tmpdir } from "node:os";
 import { analyzeMaintainerSignal, renderMarkdown, suggestLabels } from "../src/analyze.mjs";
+import { main } from "../src/cli.mjs";
 import { extractResponseText, summarizeReportWithOpenAI } from "../src/openai.mjs";
 
 const now = new Date("2026-06-01T12:00:00Z");
@@ -63,6 +67,26 @@ test("renders optional AI summary section", () => {
   const markdown = renderMarkdown(report, { repo: "owner/repo" });
   assert.match(markdown, /AI Maintainer Brief/);
   assert.match(markdown, /Project is healthy/);
+});
+
+test("CLI supports reproducible report timestamps", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "maintainer-signal-"));
+  const output = join(dir, "report.md");
+  try {
+    const code = await main([
+      "--input", "examples/issues.json",
+      "--release-input", "examples/pulls.json",
+      "--now", "2026-06-01T12:00:00Z",
+      "--output", output
+    ], {});
+
+    assert.equal(code, 0);
+    const markdown = await readFile(output, "utf8");
+    assert.match(markdown, /Generated: 2026-06-01T12:00:00.000Z/);
+    assert.match(markdown, /#101 Crash when config file is missing/);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
 });
 
 test("extracts Responses API text", () => {
