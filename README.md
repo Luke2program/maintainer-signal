@@ -47,6 +47,14 @@ Add an optional OpenAI-generated maintainer brief:
 OPENAI_API_KEY=sk-... npx maintainer-signal --repo owner/name --openai-summary
 ```
 
+Use it as a read-only health gate in CI:
+
+```bash
+npx maintainer-signal --repo owner/name --min-score 75 --output maintainer-signal.md
+```
+
+See `examples/quality-gate.yml` for a scheduled GitHub Actions workflow that uploads the report even when the score is below the threshold.
+
 ## GitHub Action
 
 ```yaml

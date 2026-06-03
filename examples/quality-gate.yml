@@ -1,0 +1,26 @@
+name: Maintainer Health Gate
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+jobs:
+  maintainer-signal:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Luke2program/maintainer-signal@v0.2.1
+        with:
+          days: "30"
+          min-score: "75"
+          output: maintainer-signal.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: maintainer-signal
+          path: maintainer-signal.md

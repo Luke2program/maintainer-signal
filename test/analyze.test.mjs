@@ -89,6 +89,26 @@ test("CLI supports reproducible report timestamps", async () => {
   }
 });
 
+test("CLI returns code 2 when health score is below the minimum", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "maintainer-signal-gate-"));
+  const output = join(dir, "report.md");
+  try {
+    const code = await main([
+      "--input", "examples/issues.json",
+      "--release-input", "examples/pulls.json",
+      "--now", "2026-06-01T12:00:00Z",
+      "--min-score", "101",
+      "--output", output
+    ], {});
+
+    assert.equal(code, 2);
+    const markdown = await readFile(output, "utf8");
+    assert.match(markdown, /Health Score/);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
 test("extracts Responses API text", () => {
   const text = extractResponseText({
     output: [
