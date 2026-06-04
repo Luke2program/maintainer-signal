@@ -61,6 +61,29 @@ test("renders markdown output", () => {
   assert.match(markdown, /Health Score/);
 });
 
+test("renders label suggestions in the triage queue", () => {
+  const report = analyzeMaintainerSignal({
+    now,
+    issues: [
+      {
+        number: 12,
+        title: "Docs need a quick start example",
+        body: "The README should include an example and setup guide.",
+        state: "open",
+        created_at: "2026-05-20T12:00:00Z",
+        updated_at: "2026-05-20T12:00:00Z",
+        comments: 0,
+        labels: [],
+        user: { login: "contributor" }
+      }
+    ],
+    pulls: []
+  });
+  const markdown = renderMarkdown(report, { repo: "owner/repo" });
+  assert.match(markdown, /#12 Docs need a quick start example/);
+  assert.match(markdown, /Suggested: `documentation`/);
+});
+
 test("renders optional AI summary section", () => {
   const report = analyzeMaintainerSignal({ now, issues: [], pulls: [] });
   report.aiSummary = "Project is healthy. Keep reviewing weekly.";

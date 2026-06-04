@@ -7,8 +7,6 @@
 
 Maintainer Signal is a zero-dependency CLI and GitHub Action that turns issue and pull request activity into a practical maintainer report.
 
-If it saves you time during issue triage or release notes, a GitHub star helps other maintainers discover it.
-
 It is built for open-source maintainers who need a fast weekly picture of what matters:
 
 - which issues are likely bugs, support requests, documentation gaps, or stale work
@@ -18,6 +16,13 @@ It is built for open-source maintainers who need a fast weekly picture of what m
 - what to paste into a status update, release note, or sponsorship report
 
 It works without AI and without third-party services by default. If a project wants richer summaries, it can optionally use an OpenAI API key to add an AI maintainer brief while keeping the deterministic report intact.
+
+## Discoverability
+
+- Public landing page: [`docs/index.html`](docs/index.html)
+- Sample report: [`examples/sample-report.md`](examples/sample-report.md)
+- Quality gate workflow: [`examples/quality-gate.yml`](examples/quality-gate.yml)
+- Contributor guide: [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ## Quick Start
 

@@ -9,6 +9,8 @@ npm test
 npm run check
 ```
 
+For docs-only changes, also open `docs/index.html` and the matching README section to keep the landing page and repo docs aligned.
+
 The project intentionally has no runtime dependencies. If a dependency is useful, open an issue first and explain the maintainer value it adds.
 
 ## Good First Issues

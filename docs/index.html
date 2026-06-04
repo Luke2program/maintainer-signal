@@ -69,6 +69,13 @@
             border-radius: 8px;
             padding: 20px;
         }
+        .note {
+            margin-top: 22px;
+            background: #eef6ff;
+            border: 1px solid #d3e3ff;
+            border-radius: 8px;
+            padding: 18px 20px;
+        }
         h2 { font-size: 30px; margin: 28px 0 10px; letter-spacing: 0; }
         h3 { margin: 0 0 8px; font-size: 18px; letter-spacing: 0; }
         p { line-height: 1.6; }
@@ -94,6 +101,9 @@
             <div class="item"><h3>Release Notes</h3><p>Collects merged pull requests and turns them into a clean release-note queue.</p></div>
             <div class="item"><h3>Read-Only By Default</h3><p>Designed to run in CI without write access or an external dashboard.</p></div>
             <div class="item"><h3>Optional OpenAI</h3><p>Adds maintainer briefs when <code>OPENAI_API_KEY</code> is configured; deterministic reports still work without it.</p></div>
+        </div>
+        <div class="note">
+            <strong>Start here:</strong> open the <a href="https://github.com/Luke2program/maintainer-signal/blob/main/examples/sample-report.md">sample report</a>, skim <a href="https://github.com/Luke2program/maintainer-signal/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>, and copy <code>examples/quality-gate.yml</code> if you want a health gate that still uploads a report.
         </div>
         <h2>Install</h2>
         <p>Use <code>Luke2program/maintainer-signal@v0.2.1</code> in a scheduled GitHub workflow, or run the CLI locally with <code>npx maintainer-signal --repo owner/name</code>.</p>
