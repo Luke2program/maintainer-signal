@@ -13,6 +13,8 @@ For docs-only changes, also open `docs/index.html` and the matching README secti
 
 The project intentionally has no runtime dependencies. If a dependency is useful, open an issue first and explain the maintainer value it adds.
 
+If you are improving onboarding for new users, keep `docs/adoption-checklist.md`, the examples, and README install sections aligned so maintainers can move from local fixtures to a read-only workflow without guessing.
+
 ## Good First Issues
 
 Useful first contributions:

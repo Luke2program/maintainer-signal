@@ -21,6 +21,7 @@ It works without AI and without third-party services by default. If a project wa
 
 - Public landing page: [`docs/index.html`](docs/index.html)
 - Sample report: [`examples/sample-report.md`](examples/sample-report.md)
+- Adoption checklist: [`docs/adoption-checklist.md`](docs/adoption-checklist.md)
 - Quality gate workflow: [`examples/quality-gate.yml`](examples/quality-gate.yml)
 - Contributor guide: [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
@@ -61,6 +62,8 @@ npx maintainer-signal --repo owner/name --min-score 75 --output maintainer-signa
 See `examples/quality-gate.yml` for a scheduled GitHub Actions workflow that uploads the report even when the score is below the threshold.
 
 ## GitHub Action
+
+If you are adding Maintainer Signal to a project for the first time, start with the [`adoption checklist`](docs/adoption-checklist.md) to keep permissions read-only and review the first report before sharing it broadly.
 
 ```yaml
 name: Maintainer Signal
