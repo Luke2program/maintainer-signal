@@ -80,8 +80,45 @@ test("renders label suggestions in the triage queue", () => {
     pulls: []
   });
   const markdown = renderMarkdown(report, { repo: "owner/repo" });
-  assert.match(markdown, /#12 Docs need a quick start example/);
+  assert.match(markdown, /\[#12\]\(https:\/\/github.com\/owner\/repo\/issues\/12\) Docs need a quick start example/);
   assert.match(markdown, /Suggested: `documentation`/);
+});
+
+test("renders GitHub links for triage and release-note candidates", () => {
+  const report = analyzeMaintainerSignal({
+    now,
+    issues: [
+      {
+        number: 8,
+        title: "Missing setup guide",
+        body: "Documentation request",
+        state: "open",
+        created_at: "2026-05-20T12:00:00Z",
+        updated_at: "2026-05-20T12:00:00Z",
+        comments: 1,
+        labels: [{ name: "documentation" }],
+        user: { login: "alice" }
+      }
+    ],
+    pulls: [
+      {
+        number: 9,
+        title: "Add setup guide",
+        state: "closed",
+        merged_at: "2026-05-22T12:00:00Z",
+        labels: [{ name: "documentation" }],
+        user: { login: "bob" }
+      }
+    ]
+  });
+
+  const linked = renderMarkdown(report, { repo: "owner/repo" });
+  assert.match(linked, /\[#8\]\(https:\/\/github.com\/owner\/repo\/issues\/8\)/);
+  assert.match(linked, /\[#9\]\(https:\/\/github.com\/owner\/repo\/pull\/9\)/);
+
+  const plain = renderMarkdown(report);
+  assert.match(plain, /- #8 Missing setup guide/);
+  assert.match(plain, /- #9 Add setup guide/);
 });
 
 test("renders optional AI summary section", () => {

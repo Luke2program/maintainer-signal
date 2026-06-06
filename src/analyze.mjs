@@ -81,6 +81,8 @@ export function analyzeMaintainerSignal({ issues = [], pulls = [], now = new Dat
 
 export function renderMarkdown(report, { repo } = {}) {
   const lines = [];
+  const issueRef = (number) => linkedGitHubRef({ repo, number, type: "issues" });
+  const pullRef = (number) => linkedGitHubRef({ repo, number, type: "pull" });
   lines.push("# Maintainer Signal Report");
   lines.push("");
   if (repo) lines.push(`Repository: \`${repo}\``);
@@ -115,7 +117,7 @@ export function renderMarkdown(report, { repo } = {}) {
   } else {
     for (const item of report.triage) {
       const suggested = item.suggestedLabels.length ? ` Suggested: ${item.suggestedLabels.map((label) => `\`${label}\``).join(", ")}.` : "";
-      lines.push(`- #${item.number} ${item.title} by @${item.author} (${item.idleDays} idle days, priority ${item.priority}).${suggested}`);
+      lines.push(`- ${issueRef(item.number)} ${item.title} by @${item.author} (${item.idleDays} idle days, priority ${item.priority}).${suggested}`);
     }
   }
   lines.push("");
@@ -125,7 +127,7 @@ export function renderMarkdown(report, { repo } = {}) {
     lines.push("No merged pull requests in this window.");
   } else {
     for (const item of report.releaseNotes) {
-      lines.push(`- #${item.number} ${item.title} by @${item.author}`);
+      lines.push(`- ${pullRef(item.number)} ${item.title} by @${item.author}`);
     }
   }
   lines.push("");
@@ -136,6 +138,11 @@ export function renderMarkdown(report, { repo } = {}) {
   }
   lines.push("");
   return lines.join("\n");
+}
+
+function linkedGitHubRef({ repo, number, type }) {
+  if (!repo || !number) return `#${number}`;
+  return `[#${number}](https://github.com/${repo}/${type}/${number})`;
 }
 
 export function suggestLabels(issue) {

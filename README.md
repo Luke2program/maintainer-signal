@@ -102,6 +102,7 @@ Maintainer Signal produces a Markdown report with:
 - response backlog
 - stale issue count
 - top triage candidates
+- direct links to referenced issues and pull requests when `--repo` is used
 - suggested labels
 - likely support/documentation/bug buckets
 - release note candidates from merged pull requests
