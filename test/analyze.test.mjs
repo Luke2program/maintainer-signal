@@ -3,7 +3,7 @@ import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { test } from "node:test";
 import { tmpdir } from "node:os";
-import { analyzeMaintainerSignal, renderMarkdown, suggestLabels } from "../src/analyze.mjs";
+import { analyzeMaintainerSignal, renderMarkdown, renderJSON, suggestLabels } from "../src/analyze.mjs";
 import { main } from "../src/cli.mjs";
 import { extractResponseText, summarizeReportWithOpenAI } from "../src/openai.mjs";
 
@@ -127,6 +127,39 @@ test("renders optional AI summary section", () => {
   const markdown = renderMarkdown(report, { repo: "owner/repo" });
   assert.match(markdown, /AI Maintainer Brief/);
   assert.match(markdown, /Project is healthy/);
+});
+
+test("renders json output", () => {
+  const report = analyzeMaintainerSignal({ now, issues: [], pulls: [] });
+  const json = renderJSON(report);
+  const parsed = JSON.parse(json);
+  assert.equal(parsed.healthScore, report.healthScore);
+  assert.equal(parsed.windowDays, report.windowDays);
+  assert.ok(Array.isArray(parsed.triage));
+  assert.ok(Array.isArray(parsed.releaseNotes));
+  assert.ok(Array.isArray(parsed.recommendations));
+});
+
+test("CLI supports json format output", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "maintainer-signal-json-"));
+  const output = join(dir, "report.json");
+  try {
+    const code = await main([
+      "--input", "examples/issues.json",
+      "--release-input", "examples/pulls.json",
+      "--now", "2026-06-01T12:00:00Z",
+      "--format", "json",
+      "--output", output
+    ], {});
+
+    assert.equal(code, 0);
+    const json = JSON.parse(await readFile(output, "utf8"));
+    assert.equal(typeof json.healthScore, "number");
+    assert.ok(Array.isArray(json.triage));
+    assert.ok(Array.isArray(json.releaseNotes));
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
 });
 
 test("CLI supports reproducible report timestamps", async () => {

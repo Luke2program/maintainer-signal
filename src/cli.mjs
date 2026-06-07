@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { readFile, writeFile } from "node:fs/promises";
-import { analyzeMaintainerSignal, renderMarkdown } from "./analyze.mjs";
+import { analyzeMaintainerSignal, renderMarkdown, renderJSON } from "./analyze.mjs";
 import { fetchRepositorySignal } from "./github.mjs";
 import { summarizeReportWithOpenAI } from "./openai.mjs";
 
@@ -45,7 +45,7 @@ export async function main(argv = process.argv.slice(2), env = process.env) {
     });
   }
   const output = options.format === "json"
-    ? `${JSON.stringify(report, null, 2)}\n`
+    ? renderJSON(report)
     : renderMarkdown(report, { repo: options.repo });
 
   if (options.output) {
@@ -97,7 +97,7 @@ Options:
   --days number                 Recent activity window, defaults to 30
   --input path                  Read issues JSON from a local file
   --release-input path          Read pull request JSON from a local file
-  --format markdown|json        Output format, defaults to markdown
+  --format markdown|json        Output format, defaults to markdown (json for programmatic use)
   --output path                 Write output to a file
   --min-score number            Exit with code 2 if health score is below this value
   --now ISO-date                Override the report timestamp for reproducible examples

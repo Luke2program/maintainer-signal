@@ -79,6 +79,10 @@ export function analyzeMaintainerSignal({ issues = [], pulls = [], now = new Dat
   };
 }
 
+export function renderJSON(report) {
+  return JSON.stringify(report, null, 2) + "\n";
+}
+
 export function renderMarkdown(report, { repo } = {}) {
   const lines = [];
   const issueRef = (number) => linkedGitHubRef({ repo, number, type: "issues" });

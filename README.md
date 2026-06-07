@@ -33,6 +33,10 @@ Run against exported GitHub issue and pull request JSON:
 npx maintainer-signal --input issues.json --release-input pulls.json
 ```
 
+```bash
+npx maintainer-signal --repo owner/name --format json --output signal-report.json
+```
+
 See `examples/sample-report.md` for the Markdown output generated from the checked-in fixtures.
 
 Run directly against a public or private GitHub repository:
@@ -127,7 +131,7 @@ Maintainers often do not need another dashboard. They need a concise digest that
 --days number                 Recent activity window, defaults to 30
 --input path                  Read issues JSON from a local file
 --release-input path          Read pull request JSON from a local file
---format markdown|json        Output format, defaults to markdown
+--format markdown|json        Output format, defaults to markdown (json for programmatic use)
 --output path                 Write output to a file
 --min-score number            Exit with code 2 if health score is below this value
 --now ISO-date                Override the report timestamp for reproducible examples
@@ -172,6 +176,7 @@ The local input mode accepts the shape returned by the GitHub REST API. It only 
 - Label policy configuration
 - Project-specific health baselines
 - HTML report output
+- Structured JSON report consumption by downstream tools
 
 ## License
 
