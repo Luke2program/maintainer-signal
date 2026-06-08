@@ -24,6 +24,7 @@ It works without AI and without third-party services by default. If a project wa
 - Adoption checklist: [`docs/adoption-checklist.md`](docs/adoption-checklist.md)
 - Quality gate workflow: [`examples/quality-gate.yml`](examples/quality-gate.yml)
 - Contributor guide: [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- Changelog: [`CHANGELOG.md`](CHANGELOG.md)
 
 ## Quick Start
 
